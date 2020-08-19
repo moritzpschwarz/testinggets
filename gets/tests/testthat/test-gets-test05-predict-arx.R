@@ -193,7 +193,7 @@ test_that("arch(0) model with constant",{
   correctVals <- c(sd2hat1,sd2hat2,sd2hat3)
   
   ##do they correspond?:
-  expect_identical( as.vector(functionVals) , correctVals )
+  #expect_identical( as.vector(functionVals) , correctVals )
   expect_equal(as.vector(functionVals),correctVals,tolerance = 1e-10)
   
 })
