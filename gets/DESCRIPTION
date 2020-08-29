@@ -14,4 +14,5 @@ Suggests:
     testthat
 BugReports: https://github.com/gsucarrat/gets/issues
 URL: https://CRAN.R-project.org/package=gets, http://www.sucarrat.net/R/gets/
+Remotes: r-lib/testthat
 Config/testthat/edition: 3
