@@ -78,6 +78,13 @@ jobs:
           _R_CHECK_CRAN_INCOMING_REMOTE_: false
         run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
         shell: Rscript {0}
+        
+      - name: Upload snapshot_files
+        uses: actions/upload-artifact@v2
+        with:
+            name: my-artifact
+            path: gets/tests/testthat/_snaps/*
+        
 
       - name: Upload check results
         if: failure()
