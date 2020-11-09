@@ -218,21 +218,21 @@ test_that("arch(1) models graphs correct", {
   
   # saves the plots as png files, they coincide with what is displayed from plot
   # when changes, will get error
-  expect_snapshot_file(path = save_png(plot(mymodel1)), name = "arch1_1.png")
-  expect_snapshot_file(path = save_png(plot(mymodel2)), name = "arch1_2.png")
-  expect_snapshot_file(path = save_png(plot(mymodel3)), name = "arch1_3.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(plot(mymodel1)), name = "arch1_1.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(plot(mymodel2)), name = "arch1_2.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(plot(mymodel3)), name = "arch1_3.png")
   
   # build an error
   # save model3 as error.png
-  # expect_snapshot_file(path = save_png(plot(mymodel3)), name = "error.png")
+  # expect_snapshot_file(cran =FALSE, path = save_png(plot(mymodel3)), name = "error.png")
   # then manipulate model3 so won't coincide with that file
   mymodel3$std.residuals[[2]] <- 1 # from 1.3517 to 1
-  expect_snapshot_file(path = save_png(plot(mymodel3)), name = "error.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(plot(mymodel3)), name = "error.png")
   
   # build another error
-  # expect_snapshot_file(path = save_png(plot(mymodel3)), name = "error2.png")
+  # expect_snapshot_file(cran =FALSE, path = save_png(plot(mymodel3)), name = "error2.png")
   # change color of one of the lines (fitted)
-  expect_snapshot_file(path = save_png(plot(mymodel3,col = c("green", "blue"))),
+  expect_snapshot_file(cran =FALSE, path = save_png(plot(mymodel3,col = c("green", "blue"))),
                        name = "error2.png")
   
 })
@@ -278,7 +278,7 @@ test_that("ar(1)-x model", {
 test_that("arch(1)-x model", {
   
   mymodel <- arx(vY, arch=1, vxreg=mX)
-  expect_snapshot_file(path = save_png(plot(mymodel)), name = "arch1x_1.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(plot(mymodel)), name = "arch1x_1.png")
   
   expect_snapshot_output(
     predict(mymodel, spec="variance", n.ahead=3, newvxreg=matrix(1,3,1)))
@@ -302,27 +302,27 @@ test_that("ar(1) plot options work", {
   
   mymodel <- arx(vY, mc=TRUE, ar=1)
   
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE)), name = "pred_ar1_1.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(keep=1))), name = "pred_ar1_2.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(line.at.origin=TRUE))), name = "pred_ar1_3.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(start.at.origin=FALSE))), name = "pred_ar1_4.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(start.at.origin=FALSE, fitted=TRUE))), name = "pred_ar1_5.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(dot.at.origin=FALSE))), name = "pred_ar1_6.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(hlines=c(-2,-1,0,1,2)))), name = "pred_ar1_7.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(col=c("darkred","green")))), name = "pred_ar1_8.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(lty=c(3,2)))), name = "pred_ar1_9.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE)), name = "pred_ar1_1.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(keep=1))), name = "pred_ar1_2.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(line.at.origin=TRUE))), name = "pred_ar1_3.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(start.at.origin=FALSE))), name = "pred_ar1_4.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(start.at.origin=FALSE, fitted=TRUE))), name = "pred_ar1_5.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(dot.at.origin=FALSE))), name = "pred_ar1_6.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(hlines=c(-2,-1,0,1,2)))), name = "pred_ar1_7.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(col=c("darkred","green")))), name = "pred_ar1_8.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(lty=c(3,2)))), name = "pred_ar1_9.png")
   ##only the forecast is lwd=3, should both be?:
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(lwd=3))), name = "pred_ar1_10.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(lwd=c(1,3)))), name = "pred_ar1_11.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(ylim=c(-8,8)))), name = "pred_ar1_12.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(ylab="G-values"))), name = "pred_ar1_13.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(main="Plot is slightly lower when 'main' is specified"))), name = "pred_ar1_14.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(legend.text=c("Prognose","Faktisk")))), name = "pred_ar1_15.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(fitted=TRUE))), name = "pred_ar1_16.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(newmactual=rep(0,6)))), name = "pred_ar1_17.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(shades=c(95,50)))), name = "pred_ar1_18.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(shades=c(50,95)))), name = "pred_ar1_19.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(shades=c(95,50)))), name = "pred_ar1_20.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(lwd=3))), name = "pred_ar1_10.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(lwd=c(1,3)))), name = "pred_ar1_11.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(ylim=c(-8,8)))), name = "pred_ar1_12.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(ylab="G-values"))), name = "pred_ar1_13.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(main="Plot is slightly lower when 'main' is specified"))), name = "pred_ar1_14.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(legend.text=c("Prognose","Faktisk")))), name = "pred_ar1_15.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(fitted=TRUE))), name = "pred_ar1_16.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(newmactual=rep(0,6)))), name = "pred_ar1_17.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(shades=c(95,50)))), name = "pred_ar1_18.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(shades=c(50,95)))), name = "pred_ar1_19.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(shades=c(95,50)))), name = "pred_ar1_20.png")
 
   ##does not work, but should it?: jbat: no because have two lines, so need lty = c(3,3)
   #predict(mymodel, plot.options=list(lty=3))
@@ -336,24 +336,24 @@ test_that("arch(1) plot options work", {
   
   mymodel <- arx(vY, vc=TRUE, arch=1)
   
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE)), name = "pred_arch1_1.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(keep=1))), name = "pred_arch1_2.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(line.at.origin=TRUE))), name = "pred_arch1_3.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(start.at.origin=FALSE))), name = "pred_arch1_4.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(start.at.origin=FALSE, fitted=TRUE))), name = "pred_arch1_5.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(dot.at.origin=FALSE))), name = "pred_arch1_6.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(hlines=0:4))), name = "pred_arch1_7.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(col=c("darkred","green")))), name = "pred_arch1_8.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(lty=c(3,2)))), name = "pred_arch1_9.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(lwd=3))), name = "pred_arch1_10.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(ylim=c(-6,8)))), name = "pred_arch1_11.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(ylab="G-values"))), name = "pred_arch1_12.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(main="Plot is slightly lower when 'main' is specified"))), name = "pred_arch1_13.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(legend.text=c("Prognose","Residualene kvadrert")))), name = "pred_arch1_14.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(fitted=TRUE))), name = "pred_arch1_15.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(newvactual=rep(1,6)))), name = "pred_arch1_16.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(shades=c(95,50)))), name = "pred_arch1_17.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(shades=c(50,95)))), name = "pred_arch1_18.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE)), name = "pred_arch1_1.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(keep=1))), name = "pred_arch1_2.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(line.at.origin=TRUE))), name = "pred_arch1_3.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(start.at.origin=FALSE))), name = "pred_arch1_4.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(start.at.origin=FALSE, fitted=TRUE))), name = "pred_arch1_5.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(dot.at.origin=FALSE))), name = "pred_arch1_6.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(hlines=0:4))), name = "pred_arch1_7.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(col=c("darkred","green")))), name = "pred_arch1_8.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(lty=c(3,2)))), name = "pred_arch1_9.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(lwd=3))), name = "pred_arch1_10.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(ylim=c(-6,8)))), name = "pred_arch1_11.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(ylab="G-values"))), name = "pred_arch1_12.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(main="Plot is slightly lower when 'main' is specified"))), name = "pred_arch1_13.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(legend.text=c("Prognose","Residualene kvadrert")))), name = "pred_arch1_14.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(fitted=TRUE))), name = "pred_arch1_15.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(newvactual=rep(1,6)))), name = "pred_arch1_16.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(shades=c(95,50)))), name = "pred_arch1_17.png")
+  expect_snapshot_file(cran =FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(shades=c(50,95)))), name = "pred_arch1_18.png")
 
 })
 
