@@ -322,7 +322,7 @@ test_that("ar(1) plot options work", {
   expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(newmactual=rep(0,6)))), name = "pred_ar1_17.png")
   expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(shades=c(95,50)))), name = "pred_ar1_18.png")
   expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(shades=c(50,95)))), name = "pred_ar1_19.png")
-  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(shades.of.grey=c(95,50)))), name = "pred_ar1_20.png")
+  expect_snapshot_file(path = save_png(predict(mymodel, plot = TRUE, plot.options=list(shades=c(95,50)))), name = "pred_ar1_20.png")
 
   ##does not work, but should it?: jbat: no because have two lines, so need lty = c(3,3)
   #predict(mymodel, plot.options=list(lty=3))
@@ -362,7 +362,7 @@ test_that("arch(1) plot options work", {
 ##################################################
 
 getOption("plot")
-#options(plot=TRUE)
+options(plot=TRUE)
 #options(plot=FALSE)
 #options(plot=NULL)
 
