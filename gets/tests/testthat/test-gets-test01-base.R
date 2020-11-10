@@ -46,7 +46,7 @@ mCoefs
 
 test_that("Log-Likelihoods the same",{
   tmp <- ols(vY, mX, method=3)
-  expect_identical(tmp$logl,sum(dnorm(tmp$residuals, sd=sqrt(tmp$sigma2), log=TRUE)))
+  expect_equal(tmp$logl,sum(dnorm(tmp$residuals, sd=sqrt(tmp$sigma2), log=TRUE)))
 })
 
 

@@ -450,6 +450,7 @@ predict(mymodel, plot=TRUE)
 predict(mymodel, n.ahead=24, plot=TRUE)
 
 test_that("Check that bootstrap and innov=rnorm simulations are similar in large sample",{
+  skip_on_ci()
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, n.ahead=24, n.sim=10000, plot=TRUE)), name = "pred_bootstr_largen.png")
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, n.ahead=24, n.sim=10000, plot=TRUE,innov=rnorm(10000*24))), name = "pred_innovrnorm_largen.png")
 })
@@ -467,6 +468,7 @@ mymodel <- arx(y[1:20], ar=1)
 predict(mymodel, n.ahead=24, plot=TRUE)
 
 test_that("Check that bootstrap and innov=rnorm simulations are similar in small sample",{
+  skip_on_ci()
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, n.ahead=24, n.sim=10000, plot=TRUE)), name = "pred_bootstr_smalln.png")
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, n.ahead=24, n.sim=10000, plot=TRUE,innov=rnorm(10000*24))), name = "pred_innovrnorm_smalln.png")
 })
