@@ -370,7 +370,7 @@ require(Matrix)
 require(microbenchmark)
 
 test_that("Check that user-defined ols2 works - skipped on CI so Matrix is not a required package",{
-  skip_on_ci()
+  #skip_on_ci()
   
   library(Matrix)
   
@@ -409,7 +409,7 @@ test_that("Check that user-defined ols2 works - skipped on CI so Matrix is not a
 })
 
 test_that("Test that for small samples ols is faster than ols2 - skip on ci so Matrix is not a required package",{
-  skip_on_ci()
+  #skip_on_ci()
   ##compare speed 1 (small T):
   system.time(getsFun(vY,mX))
   system.time(getsFun(vY, mX, user.estimator=list(name="ols2",envir=environment(ols2))))
@@ -424,7 +424,7 @@ test_that("Test that for small samples ols is faster than ols2 - skip on ci so M
 # confirm the test formally 
 test_that("Use microbenchmark to check - this is skipped on ci to avoid having to include microbenchmark as required package",{
   
-  skip_on_ci()
+  #skip_on_ci()
   
   ##comparisons 1: w/microbenchmark, see
   ##https://nelsonareal.net/blog/2017/06/speeding_up_ols.html
@@ -439,7 +439,7 @@ test_that("Use microbenchmark to check - this is skipped on ci to avoid having t
 
 
 test_that("Test speed of ols2 with large T - skipped on ci to avoid lenghty calculation",{
-  skip_on_ci()
+  #skip_on_ci()
   
   ##compare speed 2 (large T):
   set.seed(123); vY <- rnorm(10000)
@@ -556,7 +556,7 @@ test_that("user-defined gof and diagnostics work",{
 
 
 test_that("user-defined gof, diagnostics and estimator all work - skip on CI to avoid using Matrix package",{
-  skip_on_ci()
+  #skip_on_ci()
   expect_message(getsFun(vY, mX, gof.function=list(name="myGofFun",envir=environment(myGofFun)),
                          user.diagnostics=list(name="SWtest",envir=environment(SWtest), pval=0.05),
                          user.estimator=list(name="ols2",envir=environment(ols2))))
