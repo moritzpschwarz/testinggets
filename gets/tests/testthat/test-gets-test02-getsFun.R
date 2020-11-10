@@ -375,7 +375,7 @@ ols2 <- function(y, x){
   out$n <- length(y)
   if (is.null(x)){ out$k <- 0 }else{ out$k <- NCOL(x) }
   out$df <- out$n - out$k
-  if (out$k > 0) {
+  if (out$k > 0 & !is.null(x)) {
     x <- as(x, "dgeMatrix")
     out$xpy <- crossprod(x, y)
     out$xtx <- crossprod(x)
