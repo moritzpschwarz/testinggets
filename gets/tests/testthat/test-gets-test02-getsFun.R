@@ -366,6 +366,9 @@ test_that("User Defined Esimator AND Diagnostics work",{
 ##package. The R package 'microbenchmark' suggests a speed
 ##improvement of 10%
 
+require(Matrix)
+require(microbenchmark)
+
 test_that("Check that user-defined ols2 works - skipped on CI so Matrix is not a required package",{
   skip_on_ci()
   
