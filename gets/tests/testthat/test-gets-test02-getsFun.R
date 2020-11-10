@@ -377,6 +377,7 @@ ols2 <- function(y, x){
   out$df <- out$n - out$k
   if (out$k > 0) {
     x <- as(x, "dgeMatrix")
+    y <- as(y, "dgeMatrix")
     out$xpy <- crossprod(x, y)
     out$xtx <- crossprod(x)
     out$coefficients <- as.numeric(solve(out$xtx,out$xpy))
