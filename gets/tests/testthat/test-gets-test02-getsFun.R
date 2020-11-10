@@ -368,43 +368,38 @@ test_that("User Defined Esimator AND Diagnostics work",{
 
 require(Matrix)
 require(microbenchmark)
+library(Matrix)
+
+ols2 <- function(y, x){
+  out <- list()
+  out$n <- length(y)
+  if (is.null(x)){ out$k <- 0 }else{ out$k <- NCOL(x) }
+  out$df <- out$n - out$k
+  if (out$k > 0) {
+    x <- as(x, "dgeMatrix")
+    out$xpy <- crossprod(x, y)
+    out$xtx <- crossprod(x)
+    out$coefficients <- as.numeric(solve(out$xtx,out$xpy))
+    out$xtxinv <- solve(out$xtx)
+    out$fit <- out$fit <- as.vector(x %*% out$coefficients)
+  }else{
+    out$fit <- rep(0, out$n)
+  }
+  out$residuals <- y - out$fit
+  out$residuals2 <- out$residuals^2
+  out$rss <- sum(out$residuals2)
+  out$sigma2 <- out$rss/out$df
+  if(out$k > 0){ out$vcov <- as.matrix(out$sigma2 * out$xtxinv) }
+  out$logl <-
+    -out$n * log(2 * out$sigma2 * pi)/2 - out$rss/(2 * out$sigma2)
+  return(out)
+}
+
 
 test_that("Check that user-defined ols2 works - skipped on CI so Matrix is not a required package",{
   #skip_on_ci()
-  
-  library(Matrix)
-  
-  ols2 <- function(y, x){
-    out <- list()
-    out$n <- length(y)
-    if (is.null(x)){ out$k <- 0 }else{ out$k <- NCOL(x) }
-    out$df <- out$n - out$k
-    if (out$k > 0) {
-      x <- as(x, "dgeMatrix")
-      out$xpy <- crossprod(x, y)
-      out$xtx <- crossprod(x)
-      out$coefficients <- as.numeric(solve(out$xtx,out$xpy))
-      out$xtxinv <- solve(out$xtx)
-      out$fit <- out$fit <- as.vector(x %*% out$coefficients)
-    }else{
-      out$fit <- rep(0, out$n)
-    }
-    out$residuals <- y - out$fit
-    out$residuals2 <- out$residuals^2
-    out$rss <- sum(out$residuals2)
-    out$sigma2 <- out$rss/out$df
-    if(out$k > 0){ out$vcov <- as.matrix(out$sigma2 * out$xtxinv) }
-    out$logl <-
-      -out$n * log(2 * out$sigma2 * pi)/2 - out$rss/(2 * out$sigma2)
-    return(out)
-  }
-  
-  
-  
   ##gets w/ols2:
   getsFun(vY, mX, user.estimator=list(name="ols2",envir=environment(ols2)))
-  
-  
   expect_message(getsFun(vY, mX, user.estimator=list(name="ols2",envir=environment(ols2))))
 })
 
