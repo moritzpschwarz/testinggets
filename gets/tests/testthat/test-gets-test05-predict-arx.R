@@ -216,7 +216,7 @@ test_that("arch(1) models graphs correct", {
   mymodel2 <- arx(vY, mc=TRUE, arch=1)
   mymodel3 <- arx(vY, mc=TRUE, ar=1, arch=1)
   
-  skip_on_ci("skip")
+  skip_on_ci()
   
   # saves the plots as png files, they coincide with what is displayed from plot
   # when changes, will get error
@@ -241,7 +241,7 @@ test_that("arch(1) models graphs correct", {
 
 test_that("arch(1) models predictions correct", {
   
-  skip_on_ci("skip")
+  skip_on_ci()
   
   # snapshot_output saves the output, so don't have to compare to a manually
   # created vector
@@ -280,7 +280,7 @@ test_that("ar(1)-x model", {
 ##================
 
 test_that("arch(1)-x model", {
-  skip_on_ci("skip")
+  skip_on_ci()
   
   mymodel <- arx(vY, arch=1, vxreg=mX)
   expect_snapshot_file(cran =FALSE, path = save_png(plot(mymodel)), name = "arch1x_1.png")
@@ -300,7 +300,7 @@ test_that("arch(1)-x model", {
 
 test_that("ar(1) plot options work", {
   
-  skip_on_ci("skip")
+  skip_on_ci()
   
   # problem is that predict() creates a plot as a by-product / in addition to
   # the predictions
@@ -341,7 +341,7 @@ test_that("ar(1) plot options work", {
 
 test_that("arch(1) plot options work", {
   
-  skip_on_ci("skip")
+  skip_on_ci()
   
   mymodel <- arx(vY, vc=TRUE, arch=1)
   
