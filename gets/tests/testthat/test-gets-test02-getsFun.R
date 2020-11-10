@@ -55,10 +55,10 @@ test_that("Check if getsFun arguments work",{
   expect_message(getsFun(vY, mX))
   expect_message(getsFun(vY, mX, user.estimator=list(name="ols", method=4)))
   expect_message(getsFun(vY, mX, user.estimator=list(name="ols", method=5)))
-
+  
   gumResult <- ols(vY, mX, method=3)
   expect_message(getsFun(vY, mX, gum.result=gumResult))
-
+  
   expect_message(getsFun(vY, mX, t.pval=0.1))
   expect_message(getsFun(vY, mX, wald.pval=0.01))
   expect_message(getsFun(vY, mX, do.pet=FALSE))
@@ -66,7 +66,7 @@ test_that("Check if getsFun arguments work",{
   expect_message(getsFun(vY, mX, arch.LjungB=c(1,0.025)))
   expect_message(getsFun(vY, mX, normality.JarqueB=0.05))
   expect_message(getsFun(vY, mX, keep=c(1,6,10)))
-
+  
 })
 
 
@@ -98,11 +98,11 @@ test_that("getsFun - special issue single non-keep regressor",{
   expect_message(getsFun(vY, mX, include.gum=TRUE, include.1cut=TRUE, include.empty=TRUE))
   expect_message(getsFun(vY, mX, max.paths=1))
   expect_message(getsFun(vY, mX, turbo=TRUE))
-
+  
   expect_error(getsFun(vY, mX, tol=1)) #should give error
-
+  
   expect_message(getsFun(vY, mX, LAPACK=TRUE))
-
+  
   expect_error(getsFun(vY, mX, max.regs=5)) #should give error
   expect_silent(getsFun(vY, mX, print.searchinfo=FALSE))
   expect_message(getsFun(vY, mX, alarm=TRUE))
@@ -365,49 +365,55 @@ test_that("User Defined Esimator AND Diagnostics work",{
 ##ols(y, x, method=3), but based on routines from the Matrix
 ##package. The R package 'microbenchmark' suggests a speed
 ##improvement of 10%
-library(Matrix)
 
-ols2 <- function(y, x){
-  out <- list()
-  out$n <- length(y)
-  if (is.null(x)){ out$k <- 0 }else{ out$k <- NCOL(x) }
-  out$df <- out$n - out$k
-  if (out$k > 0) {
-    x <- as(x, "dgeMatrix")
-    out$xpy <- crossprod(x, y)
-    out$xtx <- crossprod(x)
-    out$coefficients <- as.numeric(solve(out$xtx,out$xpy))
-    out$xtxinv <- solve(out$xtx)
-    out$fit <- out$fit <- as.vector(x %*% out$coefficients)
-  }else{
-    out$fit <- rep(0, out$n)
+test_that("Check that user-defined ols2 works - skipped on CI so Matrix is not a required package",{
+  skip_on_ci()
+  
+  library(Matrix)
+  
+  ols2 <- function(y, x){
+    out <- list()
+    out$n <- length(y)
+    if (is.null(x)){ out$k <- 0 }else{ out$k <- NCOL(x) }
+    out$df <- out$n - out$k
+    if (out$k > 0) {
+      x <- as(x, "dgeMatrix")
+      out$xpy <- crossprod(x, y)
+      out$xtx <- crossprod(x)
+      out$coefficients <- as.numeric(solve(out$xtx,out$xpy))
+      out$xtxinv <- solve(out$xtx)
+      out$fit <- out$fit <- as.vector(x %*% out$coefficients)
+    }else{
+      out$fit <- rep(0, out$n)
+    }
+    out$residuals <- y - out$fit
+    out$residuals2 <- out$residuals^2
+    out$rss <- sum(out$residuals2)
+    out$sigma2 <- out$rss/out$df
+    if(out$k > 0){ out$vcov <- as.matrix(out$sigma2 * out$xtxinv) }
+    out$logl <-
+      -out$n * log(2 * out$sigma2 * pi)/2 - out$rss/(2 * out$sigma2)
+    return(out)
   }
-  out$residuals <- y - out$fit
-  out$residuals2 <- out$residuals^2
-  out$rss <- sum(out$residuals2)
-  out$sigma2 <- out$rss/out$df
-  if(out$k > 0){ out$vcov <- as.matrix(out$sigma2 * out$xtxinv) }
-  out$logl <-
-    -out$n * log(2 * out$sigma2 * pi)/2 - out$rss/(2 * out$sigma2)
-  return(out)
-}
-
-
-
-##gets w/ols2:
-getsFun(vY, mX, user.estimator=list(name="ols2",envir=environment(ols2)))
-
-test_that("Check that user-defined ols2 works",{
+  
+  
+  
+  ##gets w/ols2:
+  getsFun(vY, mX, user.estimator=list(name="ols2",envir=environment(ols2)))
+  
+  
   expect_message(getsFun(vY, mX, user.estimator=list(name="ols2",envir=environment(ols2))))
 })
 
-##compare speed 1 (small T):
-system.time(getsFun(vY,mX))
-system.time(getsFun(vY, mX, user.estimator=list(name="ols2",envir=environment(ols2))))
-##Conclusion: ols is faster than ols2 when T is small
-# Test this formally
-
-test_that("Test that for small samples ols is faster than ols2",{
+test_that("Test that for small samples ols is faster than ols2 - skip on ci so Matrix is not a required package",{
+  skip_on_ci()
+  ##compare speed 1 (small T):
+  system.time(getsFun(vY,mX))
+  system.time(getsFun(vY, mX, user.estimator=list(name="ols2",envir=environment(ols2))))
+  ##Conclusion: ols is faster than ols2 when T is small
+  # Test this formally
+  
+  
   expect_true(system.time(getsFun(vY,mX))[[3]]<system.time(getsFun(vY, mX, user.estimator=list(name="ols2",envir=environment(ols2))))[[3]])
 })
 
@@ -546,7 +552,8 @@ test_that("user-defined gof and diagnostics work",{
 })
 
 
-test_that("user-defined gof, diagnostics and estimator all work",{
+test_that("user-defined gof, diagnostics and estimator all work - skip on CI to avoid using Matrix package",{
+  skip_on_ci()
   expect_message(getsFun(vY, mX, gof.function=list(name="myGofFun",envir=environment(myGofFun)),
                          user.diagnostics=list(name="SWtest",envir=environment(SWtest), pval=0.05),
                          user.estimator=list(name="ols2",envir=environment(ols2))))
