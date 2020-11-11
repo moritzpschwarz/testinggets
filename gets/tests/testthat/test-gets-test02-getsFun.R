@@ -366,7 +366,8 @@ test_that("User Defined Esimator AND Diagnostics work",{
 ##package. The R package 'microbenchmark' suggests a speed
 ##improvement of 10%
 
-#library(Matrix)
+library(Matrix)
+library(microbenchmark)
 
 ols2 <- function(y, x){
   out <- list()
