@@ -55,10 +55,10 @@ test_that("Check if getsFun arguments work",{
   expect_message(getsFun(vY, mX))
   expect_message(getsFun(vY, mX, user.estimator=list(name="ols", method=4)))
   expect_message(getsFun(vY, mX, user.estimator=list(name="ols", method=5)))
-  
+
   gumResult <- ols(vY, mX, method=3)
   expect_message(getsFun(vY, mX, gum.result=gumResult))
-  
+
   expect_message(getsFun(vY, mX, t.pval=0.1))
   expect_message(getsFun(vY, mX, wald.pval=0.01))
   expect_message(getsFun(vY, mX, do.pet=FALSE))
@@ -66,7 +66,7 @@ test_that("Check if getsFun arguments work",{
   expect_message(getsFun(vY, mX, arch.LjungB=c(1,0.025)))
   expect_message(getsFun(vY, mX, normality.JarqueB=0.05))
   expect_message(getsFun(vY, mX, keep=c(1,6,10)))
-  
+
 })
 
 
@@ -98,11 +98,11 @@ test_that("getsFun - special issue single non-keep regressor",{
   expect_message(getsFun(vY, mX, include.gum=TRUE, include.1cut=TRUE, include.empty=TRUE))
   expect_message(getsFun(vY, mX, max.paths=1))
   expect_message(getsFun(vY, mX, turbo=TRUE))
-  
+
   expect_error(getsFun(vY, mX, tol=1)) #should give error
-  
+
   expect_message(getsFun(vY, mX, LAPACK=TRUE))
-  
+
   expect_error(getsFun(vY, mX, max.regs=5)) #should give error
   expect_silent(getsFun(vY, mX, print.searchinfo=FALSE))
   expect_message(getsFun(vY, mX, alarm=TRUE))
@@ -201,7 +201,7 @@ test_that("getsFun Bookkeeping - keep=1",{
   expect_true(all( tmp==TRUE ))
   expect_identical(mod01$specific.spec, mod02$specific.spec)
   expect_identical(mod01$terminals.results, mod02$terminals.results)
-  
+
 })
 
 
@@ -366,9 +366,7 @@ test_that("User Defined Esimator AND Diagnostics work",{
 ##package. The R package 'microbenchmark' suggests a speed
 ##improvement of 10%
 
-require(Matrix)
-require(microbenchmark)
-library(Matrix)
+#library(Matrix)
 
 ols2 <- function(y, x){
   out <- list()
@@ -377,9 +375,9 @@ ols2 <- function(y, x){
   out$df <- out$n - out$k
   if (out$k > 0 & !is.null(x)) {
     x <- as(x, "dgeMatrix")
-    out$xpy <- crossprod(x, y)
-    out$xtx <- crossprod(x)
-    out$coefficients <- as.numeric(solve(out$xtx,out$xpy))
+    out$xpy <- Matrix::crossprod(x, y)
+    out$xtx <- Matrix::crossprod(x)
+    out$coefficients <- as.numeric(solve(out$xtx,as.matrix(out$xpy)))
     out$xtxinv <- solve(out$xtx)
     out$fit <- out$fit <- as.vector(x %*% out$coefficients)
   }else{
