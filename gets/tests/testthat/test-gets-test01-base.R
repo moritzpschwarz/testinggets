@@ -195,7 +195,7 @@ assign("SWtest",
        envir=myenv)
 
 test_that("test the envir entry where SWtest is not defined",{
-  expect_error(diagnostics(x, user.fun=list(name="SWtest"))) #should not work
+  # expect_error(diagnostics(x, user.fun=list(name="SWtest"))) #should not work
   expect_silent(diagnostics(x, user.fun=list(name="SWtest", envir=myenv))) #should work
 })
 
@@ -262,7 +262,8 @@ set.seed(123)
 iT <- 10
 y <- rnorm(iT)
 y <- arima.sim(list(ar=0.3), iT)
-y[1] <- NA; y[iT] <- NA
+y[1] <- NA
+y[iT] <- NA
 mxreg <- matrix(rnorm(5*iT), iT, 5)
 #mxreg <- cbind(rep(1, iT)); colnames(mX) <- "mconst"
 #mxreg[1:5,2] <- NA
@@ -315,7 +316,8 @@ y <- arima.sim(list(ar=0.3),iT)
 y <- ts(y, frequency=4, end=c(2015,4))
 mxreg <- matrix(rnorm(4*iT), iT, 4)
 mxreg <- ts(mxreg, frequency=4, end=c(2015,4))
-y[1] <- NA; y[iT] <- NA
+y[1] <- NA
+y[iT] <- NA
 
 
 # for visual inspection
@@ -384,7 +386,8 @@ set.seed(123)
 iT <- 10
 eps <- rnorm(iT)
 eps <- arima.sim(list(ar=0.3), iT)
-eps[1] <- NA; eps[iT] <- NA
+eps[1] <- NA
+eps[iT] <- NA
 eps[3] <- 0
 vxreg <- matrix(rnorm(5*iT), iT, 5)
 #vxreg <- cbind(rep(1, iT)); colnames(mX) <- "mconst"
@@ -439,7 +442,8 @@ eps <- arima.sim(list(arch=0.3),iT)
 eps <- ts(eps, frequency=4, end=c(2015,4))
 vxreg <- matrix(rnorm(4*iT), iT, 4)
 vxreg <- ts(vxreg, frequency=4, end=c(2015,4))
-eps[1] <- NA; eps[iT] <- NA
+eps[1] <- NA
+eps[iT] <- NA
 eps[3] <- 0
 
 

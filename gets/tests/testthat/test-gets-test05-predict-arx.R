@@ -397,7 +397,8 @@ preda <- predict(mymodel, n.ahead=20,
 preda
 
 ##used to yield error in the plotting:
-set.seed(123); dgp.n <- 50
+set.seed(123)
+dgp.n <- 50
 y <- rnorm(dgp.n) #or: y <- rt(dgp.n, df=4.1)
 mX <- matrix(rnorm(dgp.n*3),dgp.n,3)
 y[1:10] <- y[1:10] + 4 #step-shift
