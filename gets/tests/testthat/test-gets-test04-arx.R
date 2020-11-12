@@ -500,9 +500,9 @@ SWtest <- function(x, ...){
 # mod06 <- arx(y, ar=1:4, mxreg=mX, user.diagnostics=list(name="SWtest"))
 #print(mod06)
 #print(mod06, signif.stars=TRUE)
-mod06 <- arx(y, ar=1:4, mxreg=mX,user.diagnostics=list(name="SWtest", pval=0.025))
+#mod06 <- arx(y, ar=1:4, mxreg=mX,user.diagnostics=list(name="SWtest", pval=0.025))
 # the pval argument is ignored (as it should), I think
-print(mod06)
+#print(mod06)
 
 
 test_that("User defined diagnostics",{
