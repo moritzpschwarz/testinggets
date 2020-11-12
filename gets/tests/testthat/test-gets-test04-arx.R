@@ -150,6 +150,7 @@ plot(mod01)
 test_that("arx fitted and loglik and simple plot",{
   expect_null(fitted(mod01, spec="b")) #should be NULL
   expect_true(isClass("logLik",logLik(mod01)))
+  skip_on_ci()
   expect_snapshot_file(cran = FALSE, path = save_png(plot(mod01)), name = "arx_standardplot.png")
 })
 
