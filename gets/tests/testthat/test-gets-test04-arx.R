@@ -557,7 +557,7 @@ Gfun <- function(y, x, method=3){
 
 # Visual Inspection
 
-mod07 <- arx(y, ar=1:4, mxreg=mX,user.estimator=list(name="Gfun"), plot=FALSE)
+mod07 <- arx(y, ar=1:4, mxreg=mX,user.estimator=list(name="Gfun", envir=environment(Gfun)), plot=FALSE)
 summary(mod07)
 print(mod07)
 # mod07 <- arx(y, ar=1:4, mxreg=mX, user.estimator=list(name="Gfun"), plot=TRUE) #should work but produce warning
@@ -619,7 +619,7 @@ Gfun <- function(y, x, ...){
   tmp$mean.fit <- tmp$fit
   return(tmp)
 }
-mod08 <- arx(y, ar=1:4, mxreg=mX,user.estimator=list(name="Gfun"), plot=FALSE)
+mod08 <- arx(y, ar=1:4, mxreg=mX,user.estimator=list(name="Gfun", envir=environment(Gfun)), plot=FALSE)
 summary(mod08)
 print(mod08)
 # mod08 <- arx(y, ar=1:4, mxreg=mX,user.estimator=list(name="Gfun"), plot=TRUE) #should produce warning
@@ -699,7 +699,7 @@ ols2 <- function(y, x){
 
 # Visual inspection
 
-mod09 <- arx(y, ar=1:4, mxreg=mX,user.estimator=list(name="ols2"), plot=FALSE)
+mod09 <- arx(y, ar=1:4, mxreg=mX,user.estimator=list(name="ols2", envir=environment(ols2)), plot=FALSE)
 summary(mod09)
 print(mod09)
 # mod09 <- arx(y, ar=1:4, mxreg=mX,user.estimator=list(name="ols2"), plot=TRUE) #should produce warning
@@ -726,10 +726,10 @@ vcov(mod09, spec="v")
 # Unit testing
 
 test_that("ols2 user-defined testing (fast ols)",{
-  expect_silent(mod09 <- arx(y, ar=1:4, mxreg=mX,user.estimator=list(name="ols2"), plot=FALSE))
+  expect_silent(mod09 <- arx(y, ar=1:4, mxreg=mX,user.estimator=list(name="ols2", envir=environment(ols2)), plot=FALSE))
   expect_silent(summary(mod09))
   expect_output(print(mod09))
-  expect_message(mod09 <- arx(y, ar=1:4, mxreg=mX,user.estimator=list(name="ols2"), plot=TRUE)) #should produce warning
+  expect_message(mod09 <- arx(y, ar=1:4, mxreg=mX,user.estimator=list(name="ols2", envir=environment(ols2)), plot=TRUE)) #should produce warning
   expect_silent(summary(mod09))
   expect_output(print(mod09))
   expect_vector(coef(mod09))
