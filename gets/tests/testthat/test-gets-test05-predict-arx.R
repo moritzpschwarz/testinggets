@@ -246,12 +246,15 @@ test_that("arch(1) models predictions correct", {
   # snapshot_output saves the output, so don't have to compare to a manually
   # created vector
   mymodel <- arx(vY, arch=1)
+  set.seed(123)
   expect_snapshot_output(predict(mymodel, spec="variance"))
   
   mymodel <- arx(vY, mc=TRUE, arch=1)
+  set.seed(123)
   expect_snapshot_output(predict(mymodel, spec="variance"))
   
   mymodel <- arx(vY, mc=TRUE, ar=1, arch=1)
+  set.seed(123)
   expect_snapshot_output(predict(mymodel, spec="variance"))
   
 })
@@ -265,6 +268,7 @@ test_that("ar(1)-x model", {
   mymodel <- arx(vY, mc=TRUE, ar=1, mxreg=mX)
   
   ##predictions of the variance:
+  set.seed(123)
   functionVals <- predict(mymodel, spec="variance", n.ahead=3)
   
   ##correct predictions:
@@ -285,6 +289,7 @@ test_that("arch(1)-x model", {
   mymodel <- arx(vY, arch=1, vxreg=mX)
   expect_snapshot_file(cran = FALSE, path = save_png(plot(mymodel)), name = "arch1x_1.png")
   
+  set.seed(123)
   expect_snapshot_output(
     predict(mymodel, spec="variance", n.ahead=3, newvxreg=matrix(1,3,1)))
   
@@ -308,27 +313,46 @@ test_that("ar(1) plot options work", {
   # solution: set plot = TRUE for the predict() commands
   
   mymodel <- arx(vY, mc=TRUE, ar=1)
-  
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE)), name = "pred_ar1_1.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(keep=1))), name = "pred_ar1_2.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(line.at.origin=TRUE))), name = "pred_ar1_3.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(start.at.origin=FALSE))), name = "pred_ar1_4.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(start.at.origin=FALSE, fitted=TRUE))), name = "pred_ar1_5.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(dot.at.origin=FALSE))), name = "pred_ar1_6.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(hlines=c(-2,-1,0,1,2)))), name = "pred_ar1_7.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(col=c("darkred","green")))), name = "pred_ar1_8.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(lty=c(3,2)))), name = "pred_ar1_9.png")
   ##only the forecast is lwd=3, should both be?:
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(lwd=3))), name = "pred_ar1_10.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(lwd=c(1,3)))), name = "pred_ar1_11.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(ylim=c(-8,8)))), name = "pred_ar1_12.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(ylab="G-values"))), name = "pred_ar1_13.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(main="Plot is slightly lower when 'main' is specified"))), name = "pred_ar1_14.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(legend.text=c("Prognose","Faktisk")))), name = "pred_ar1_15.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(fitted=TRUE))), name = "pred_ar1_16.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(newmactual=rep(0,6)))), name = "pred_ar1_17.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(shades=c(95,50)))), name = "pred_ar1_18.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(shades=c(50,95)))), name = "pred_ar1_19.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(shades=c(95,50)))), name = "pred_ar1_20.png")
 
   ##does not work, but should it?: jbat: no because have two lines, so need lty = c(3,3)
@@ -344,24 +368,41 @@ test_that("arch(1) plot options work", {
   skip_on_ci()
   
   mymodel <- arx(vY, vc=TRUE, arch=1)
-  
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE)), name = "pred_arch1_1.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(keep=1))), name = "pred_arch1_2.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(line.at.origin=TRUE))), name = "pred_arch1_3.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(start.at.origin=FALSE))), name = "pred_arch1_4.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(start.at.origin=FALSE, fitted=TRUE))), name = "pred_arch1_5.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(dot.at.origin=FALSE))), name = "pred_arch1_6.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(hlines=0:4))), name = "pred_arch1_7.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(col=c("darkred","green")))), name = "pred_arch1_8.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(lty=c(3,2)))), name = "pred_arch1_9.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(lwd=3))), name = "pred_arch1_10.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(ylim=c(-6,8)))), name = "pred_arch1_11.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(ylab="G-values"))), name = "pred_arch1_12.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(main="Plot is slightly lower when 'main' is specified"))), name = "pred_arch1_13.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(legend.text=c("Prognose","Residualene kvadrert")))), name = "pred_arch1_14.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(fitted=TRUE))), name = "pred_arch1_15.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(newvactual=rep(1,6)))), name = "pred_arch1_16.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(shades=c(95,50)))), name = "pred_arch1_17.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, plot = TRUE, plot.options=list(shades=c(50,95)))), name = "pred_arch1_18.png")
 
 })
@@ -419,6 +460,7 @@ test_that("plot error is reported", {
   arxmod <- arx(y, mc=TRUE, ar=1)
   ##generates predictions with user-specified index, but no plot:
   # not sure why expect_message() does not work
+  set.seed(123)
   expect_message(predict(arxmod, newindex=19:30))
 
 })
@@ -452,7 +494,9 @@ predict(mymodel, n.ahead=24, plot=TRUE)
 
 test_that("Check that bootstrap and innov=rnorm simulations are similar in large sample",{
   skip_on_ci()
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, n.ahead=24, n.sim=10000, plot=TRUE)), name = "pred_bootstr_largen.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, n.ahead=24, n.sim=10000, plot=TRUE,innov=rnorm(10000*24))), name = "pred_innovrnorm_largen.png")
 })
 
@@ -470,7 +514,9 @@ predict(mymodel, n.ahead=24, plot=TRUE)
 
 test_that("Check that bootstrap and innov=rnorm simulations are similar in small sample",{
   skip_on_ci()
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, n.ahead=24, n.sim=10000, plot=TRUE)), name = "pred_bootstr_smalln.png")
+  set.seed(123)
   expect_snapshot_file(cran = FALSE, path = save_png(predict(mymodel, n.ahead=24, n.sim=10000, plot=TRUE,innov=rnorm(10000*24))), name = "pred_innovrnorm_smalln.png")
 })
 
