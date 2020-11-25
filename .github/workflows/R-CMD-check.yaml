@@ -92,8 +92,8 @@ jobs:
       #- name: Debugging with tmate 
       #  uses: mxschmitt/action-tmate@v3.1
       
-      - name: Install LaTeX
-        uses: xu-cheng/latex-action@v2
+      - name: Install TinyTex
+        uses: r-lib/actions/setup-tinytex@master
       
       - name: Check
         env:
