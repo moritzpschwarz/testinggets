@@ -154,7 +154,7 @@ test_that("TEST MAIN blocksFun ARGUMENTS",{
   expect_message(blocksFun(vY, mX, max.paths=1)$specific.spec)
   expect_message(blocksFun(vY, mX, parallel.options=2)$specific.spec)
   
-  expect_error(blocksFun(vY, mX, parallel.options=5)$specific.spec) #should return error
+  expect_error(blocksFun(vY, mX, parallel.options=(parallel::detectCores()+10))$specific.spec) #should return error
   
   expect_message(blocksFun(vY, mX, turbo=TRUE)$specific.spec)
   expect_message(blocksFun(vY, mX, force.invertibility=FALSE)$specific.spec)
