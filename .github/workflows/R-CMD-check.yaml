@@ -68,6 +68,9 @@ jobs:
           do
             eval sudo $cmd
           done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04","gets"))')
+      
+      - name: Install TinyTex
+        uses: r-lib/actions/setup-tinytex@master
 
       - name: Install dependencies
         run: |
@@ -93,8 +96,6 @@ jobs:
       #- name: Debugging with tmate 
       #  uses: mxschmitt/action-tmate@v3.1
       
-      - name: Install TinyTex
-        uses: r-lib/actions/setup-tinytex@master
       
       - name: Check
         env:
