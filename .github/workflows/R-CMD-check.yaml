@@ -92,6 +92,9 @@ jobs:
       #- name: Debugging with tmate 
       #  uses: mxschmitt/action-tmate@v3.1
       
+      - name: Install LaTeX
+        uses: xu-cheng/latex-action@v2
+      
       - name: Check
         env:
           _R_CHECK_CRAN_INCOMING_REMOTE_: false
