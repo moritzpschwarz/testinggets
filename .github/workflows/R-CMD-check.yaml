@@ -76,6 +76,7 @@ jobs:
         run: |
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
+          remotes::install_cran("tinytex")
           tinytex::tlmgr_install("ae")
         shell: Rscript {0}
       
