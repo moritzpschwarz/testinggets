@@ -31,4 +31,4 @@ Alternatively, you can try installing the development version directly from GitH
 * [https://felixpretis.climateeconometrics.org/software/](https://felixpretis.climateeconometrics.org/software/)
 
 # License
-This package is free and open source software, licensed under GPL (>= 2)
+This package is free and open so urce software, licensed under GPL (>= 2)
