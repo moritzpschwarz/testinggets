@@ -7,6 +7,8 @@ The R Package *gets*. provides General-to-Specific (GETS) modelling of the mean 
 
 
 
+
+
 The CRAN webpage of the package is: [https://CRAN.R-project.org/package=gets]( https://CRAN.R-project.org/package=gets). Here, on Github, we provide the development version of the package. For an overview of the files and folders, see OVERVIEW.md.
 
 # Installation
